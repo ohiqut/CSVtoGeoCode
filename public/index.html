@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="/client-js/script.js"></script>
+<script type="text/javascript" src="/client-js/jquery.js"></script>
+<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.4/papaparse.js"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkB2eh2WaQZGxkSNHMZnnCIVCCRny9P7Q&libraries=geometry&callback=initMap"async defer></script>
+    <style> #map { height: 50%;}
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;}
+    </style>
+
+    <body>
+        <div id="map"></div>
+        <label>Select a csv file containing places' Name followed by Address, structured as: (Name,"Address"), to get coords. and view on Map.</label> <br/>
+        <input type="file" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv">
+        <button type="submit" onclick="callServer()">Locate Address</button> <br/><br/>
+	<label id ='fileName'></label>
+        <table id = 'table' border='3'></table>
+    </body>
+
+</html>
+
