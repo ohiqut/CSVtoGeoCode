@@ -4,7 +4,6 @@ var https = require('https');
 var app = express();
 const port = 3000;
 
-var nameAddressCount=0; // includes count of both place Name and Address combined
 
 app.use('/', express.static(__dirname + '/../public'));
 
@@ -27,6 +26,8 @@ app.get('/convert/:address', function(appReq, appRes) {
     /*'locations' array to hold each place's Name followed by Object bearing the latitude and longitude*/
     var locations = [];
 
+    var nameAddressCount=0; // includes count of both place Name and Address combined
+
     /*deducted 2 from the 'arr' array length in the following Count because the last item in the array is an empty string
     and the second last is an address that can be referenced as 'i+1' in the following loop*/
     nameAddressCount = arr.length-2;
@@ -34,7 +35,7 @@ app.get('/convert/:address', function(appReq, appRes) {
     for (var i =0; i<nameAddressCount;i++){
         var name = arr[i];
         var address = arr[i+1].replace(/ /g, '+');
-           getGeoCode(name, address, locations, appRes);
+           getGeoCode(name, address, nameAddressCount, locations, appRes);
             i++; // incremented again in this loop so that the next iteration skips the address already used from arr[i+1]
     }
 });
@@ -45,7 +46,7 @@ app.get('/convert/:address', function(appReq, appRes) {
   *The Parent Response within which this function is called is passed as the last parameter
   *that is used to eventually send the final array output to the client and then gets ended within this function.
   */
-function getGeoCode(name, address, locations, parentRsp){
+function getGeoCode(name, address, nameAddressCount, locations, parentRsp){
      /*Geo Code API parameter options*/
      var options ={
              hostname: 'maps.googleapis.com',
